@@ -12,16 +12,18 @@
     </MudButton>
 </div>
 
-<MudDataGrid
+@if (Categories != null)
+{
+    <MudDataGrid
     Class="mt-4"
     Items="@Categories"
     Filterable="true"
     QuickFilter="Filter"
     Hideable="true">
-    <ToolBarContent>
-        <MudText Typo="Typo.h6">Categorias</MudText>
-        <MudSpacer/>
-        <MudTextField
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Categorias</MudText>
+            <MudSpacer/>
+            <MudTextField
             @bind-Value="SearchTerm"
             Placeholder="Filtrar..."
             Adornment="Adornment.Start"
@@ -29,27 +31,33 @@
             Immediate="true"
             IconSize="Size.Medium"
             Class="mt-0">
-        </MudTextField>
-    </ToolBarContent>
-    <Columns>
-        <PropertyColumn Property="x => x.Id" Title="#"/>
-        <PropertyColumn Property="x => x.Title" Title="Categoria"/>
-        <TemplateColumn Class="d-flex justify-end">
-            <CellTemplate>
-                <MudStack Row>
-                    <MudIconButton 
+            </MudTextField>
+        </ToolBarContent>
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="#"/>
+            <PropertyColumn Property="x => x.Title" Title="Categoria"/>
+            <TemplateColumn Class="d-flex justify-end">
+                <CellTemplate>
+                    <MudStack Row>
+                        <MudIconButton 
                         Icon="@Icons.Material.Filled.Edit"
                         Href="@($"/categorias/editar/{context.Item.Id}")"
                         Color="Color.Primary">
-                    </MudIconButton>
-                    <MudIconButton 
+                        </MudIconButton>
+                        <MudIconButton 
                         Icon="@Icons.Material.Filled.Delete"
                         Color="Color.Error"
                         aria-label="Excluir"
                         OnClick="() => OnDeleteButtonClickedAsync(context.Item.Id, context.Item.Title)">
-                    </MudIconButton>
-                </MudStack>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
+                        </MudIconButton>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+}
+else
+{
+  <h4> Sem categorias cadastradas no momento! </h4>       
+}
+
